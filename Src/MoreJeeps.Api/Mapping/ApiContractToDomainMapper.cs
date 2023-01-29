@@ -2,6 +2,15 @@ namespace MoreJeeps.Api.Mapping;
 
 public static class ApiContractToDomainMapper
 {
+    public static Game ToGame(this GameRequest request)
+    {
+        return new Game
+        {
+            Id = Guid.NewGuid(),
+            Name = request.Name
+        };
+    }
+
     public static Sighting ToSighting(this SightingRequest request)
     {
         return new Sighting
@@ -10,7 +19,8 @@ public static class ApiContractToDomainMapper
             PlayerName = request.PlayerName,
             DateOfSighting = request.DateOfSighting,
             Longitude = request.Longitude,
-            Latitude = request.Latitude
+            Latitude = request.Latitude,
+            GameId = request.GameId
         };
     }
 }

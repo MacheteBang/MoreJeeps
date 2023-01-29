@@ -40,4 +40,13 @@ public class SightingsController : ControllerBase
         var sightingResponse = sighting.ToSightingResponse();
         return Ok(sightingResponse);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var sightings = await _sightingService.GetAllAsync();
+        var responses = sightings.Select(s => s.ToSightingResponse());
+
+        return Ok(responses);
+    }
 }
