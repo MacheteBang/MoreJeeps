@@ -9,7 +9,8 @@ public static class EntityContractToDomainMapper
         return new Game
         {
             Id = entity.Id,
-            Name = entity.Name
+            Name = entity.Name,
+            DateCreatedUtc = entity.DateCreatedUtc
         };
     }
 
@@ -19,7 +20,7 @@ public static class EntityContractToDomainMapper
         {
             Id = entity.Id,
             PlayerName = entity.PlayerName,
-            DateOfSighting = entity.DateOfSighting,
+            DateSightedUtc = entity.DateSightedUtc,
             Longitude = entity.Longitude,
             Latitude = entity.Latitude,
             GameId = entity.GameId

@@ -4,4 +4,5 @@ public class GameResponse
 {
     public required Guid Id { get; init; }
     public string Name { get; init; } = default!;
+    public DateTimeOffset DateCreatedUtc { get; init; } = default!;
 }

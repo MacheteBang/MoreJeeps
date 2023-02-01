@@ -7,7 +7,8 @@ public static class DomainToApiContractMapper
         return new GameResponse
         {
             Id = game.Id,
-            Name = game.Name
+            Name = game.Name,
+            DateCreatedUtc = game.DateCreatedUtc
         };
     }
 
@@ -17,7 +18,7 @@ public static class DomainToApiContractMapper
         {
             Id = sighting.Id,
             PlayerName = sighting.PlayerName,
-            DateOfSighting = sighting.DateOfSighting,
+            DateSightedUtc = sighting.DateSightedUtc,
             Longitude = sighting.Longitude,
             Latitude = sighting.Latitude,
             GameId = sighting.GameId

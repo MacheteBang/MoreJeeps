@@ -17,7 +17,7 @@ public static class ApiContractToDomainMapper
         {
             Id = Guid.NewGuid(),
             PlayerName = request.PlayerName,
-            DateOfSighting = request.DateOfSighting,
+            DateSightedUtc = request.DateSightedUtc,
             Longitude = request.Longitude,
             Latitude = request.Latitude,
             GameId = request.GameId

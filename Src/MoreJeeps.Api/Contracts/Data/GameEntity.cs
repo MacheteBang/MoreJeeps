@@ -6,6 +6,7 @@ public class GameEntity
 {
     public required Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = default!;
+    public DateTimeOffset DateCreatedUtc { get; set; } = default!;
 
-    public IEnumerable<SightingEntity> SightingEntities {get; set; } = new List<SightingEntity>();
+    public IEnumerable<SightingEntity> SightingEntities { get; set; } = new List<SightingEntity>();
 }
