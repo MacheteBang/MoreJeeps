@@ -1,0 +1,12 @@
+POST  http://localhost:7071/api/sightings
+Content-Type: application/json
+
+{
+    "player": 2
+}
+
+###
+GET http://localhost:7071/api/games
+
+###
+DELETE http://localhost:7071/api/games
