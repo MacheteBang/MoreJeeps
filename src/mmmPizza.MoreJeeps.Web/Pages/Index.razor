@@ -1,19 +1,23 @@
 ﻿@page "/"
 
 <div class="" style="height:100vh">
-    <div class="row p-0 m-0 align-items-center bg-light shadow" style="height:64px">
+    <div class="row p-0 m-0 align-items-center shadow" style="background-color:#41533b;height:64px">
         <div class="col-10">
-            <span class="display-6">More Jeeps!</span>
+            <span class="text-light display-6">More Jeeps!</span>
         </div>
         <div class="col-2 text-end">
-            <button class="btn btn-dark" @onclick="OnResetButtonClickedAsync">Reset</button>
+            <button class="btn btn-light" @onclick="OnResetButtonClickedAsync">Reset</button>
         </div>
     </div>
-    <div class="row row-cols-2 p-0 m-0" style="height:calc(100vh - 64px)">
-        <PlayerPanel @ref="_playerOnePanel" Player="Players.One" IncrementScore="IncrementPanelScoreAsync" />
-        <PlayerPanel @ref="_playerTwoPanel" Player="Players.Two" IncrementScore="IncrementPanelScoreAsync" />
-        <PlayerPanel @ref="_playerThreePanel" Player="Players.Three" IncrementScore="IncrementPanelScoreAsync" />
-        <PlayerPanel @ref="_playerFourPanel" Player="Players.Four" IncrementScore="IncrementPanelScoreAsync" />
+    <div class="row row-cols-2 p-0 m-0" style="background-color:#78866B;height:calc(100vh - 64px)">
+        <PlayerPanel @ref="_playerOnePanel" Player="Players.One" PlayerName="Jonathan" PlayerColor="#424d07"
+            IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerTwoPanel" Player="Players.Two" PlayerName="Jennifer" PlayerColor="#ba3d4d"
+            IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerThreePanel" Player="Players.Three" PlayerName="Jessica" PlayerColor="#1c3d67"
+            IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerFourPanel" Player="Players.Four" PlayerName="Tommy" PlayerColor="#7c7c1c"
+            IncrementScore="IncrementPanelScoreAsync" />
     </div>
 </div>
 @code
