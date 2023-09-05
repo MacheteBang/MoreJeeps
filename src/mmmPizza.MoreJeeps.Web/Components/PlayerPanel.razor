@@ -1,0 +1,35 @@
+<div class="col p-3 m-0" style="height:50%">
+    <div class="row p-0 m-0 align-items-center text-center border rounded" style="height:100%; cursor:pointer"
+    @onclick="OnPanelClickAsync">
+        <div>
+            <h1>Player @Player.ToString()</h1>
+            <h2>Score: @_score jeeps</h2>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public Players Player { get; set; }
+    [Parameter] public EventCallback<Players> IncrementScore { get; set; }
+
+    private int _score { get; set; }
+
+
+    public void SetScore(int newScore)
+    {
+        _score = newScore;
+    }
+    public void ClearScore()
+    {
+        _score = 0;
+    }
+}
+@functions
+{
+    private async Task OnPanelClickAsync()
+    {
+        _score++;
+        await IncrementScore.InvokeAsync(Player);
+    }
+}

@@ -4,5 +4,6 @@ namespace mmmPizza.MoreJeeps.Contracts.Requests;
 
 public class SightingRequest
 {
-    [JsonPropertyName("player")] public Players Player { get; set; }
+    [JsonPropertyName("player"), JsonConverter(typeof(JsonStringEnumConverter))]
+    public Players Player { get; set; }
 }
