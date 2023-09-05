@@ -1,6 +1,6 @@
-namespace mmmPizza.MoreJeeps.Models;
+namespace mmmPizza.MoreJeeps.DataAccess;
 
-public class Sighting
+public class SightingEntity : BaseTableEntity
 {
     public Guid Id { get; set; }
     public Guid GameId { get; set; }

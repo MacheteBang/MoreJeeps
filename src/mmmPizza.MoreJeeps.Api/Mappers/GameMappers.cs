@@ -9,4 +9,11 @@ public static class GameMappers
             PlayerScores = model.PlayerScores
         };
     }
+    public static Game ToGame(this GameEntity entity)
+    {
+        return new()
+        {
+            Id = entity.Id
+        };
+    }
 }

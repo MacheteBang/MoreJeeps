@@ -1,47 +1,82 @@
+using Azure.Data.Tables;
+using Microsoft.Extensions.Options;
+
 namespace mmmPizza.MoreJeeps.DataAccess;
 
 public interface IGameRepository
 {
-    Task AddSightingAsync(Sighting sighting);
-    Task<Game> GetGameAsync();
+    Task AddSightingAsync(SightingEntity sighting);
+    Task<List<SightingEntity>> GetSightingsAsync(Guid gameId);
+    Task<GameEntity> GetGameAsync();
     Task ClearGameAsync();
 }
 
 public sealed class GameRepository : IGameRepository
 {
-    public List<Sighting> _sightings = new();
+    private readonly TableClient _sightingsClient;
+    private readonly TableClient _gamesClient;
 
-    public async Task AddSightingAsync(Sighting sighting)
+    public GameRepository(IOptions<MoreJeepsTableSettings> settings)
     {
-        await Task.CompletedTask;
-
-        _sightings.Add(sighting);
+        _sightingsClient = new TableClient(settings.Value.ConnectionString, settings.Value.SightingsTableName);
+        _gamesClient = new TableClient(settings.Value.ConnectionString, settings.Value.GamesTableName);
     }
 
-    public async Task<Game> GetGameAsync()
+    public async Task AddSightingAsync(SightingEntity sightingEntity)
     {
-        await Task.CompletedTask;
-
-        var scores = _sightings
-            .GroupBy(s => s.Player)
-            .Select(s => new
-            {
-                Player = s.Key,
-                Score = s.Count()
-            })
-            .ToDictionary(s => s.Player, s => s.Score);
-
-        return new Game
-        {
-            PlayerScores = scores
-        };
+        _ = await _sightingsClient.AddEntityAsync(sightingEntity);
     }
+
+    public async Task<List<SightingEntity>> GetSightingsAsync(Guid gameId)
+    {
+        return _sightingsClient
+            .Query<SightingEntity>(TableClient.CreateQueryFilter($"GameId eq {gameId}"))
+            .ToList();
+    }
+
 
     public async Task ClearGameAsync()
     {
-        await Task.CompletedTask;
+        // Get entity that is currently active.
+        GameEntity? activeGame = _gamesClient
+            .Query<GameEntity>("IsActive eq true")
+            .FirstOrDefault();
 
-        _sightings.Clear();
+        if (activeGame != default)
+        {
+            activeGame.IsActive = false;
+            _ = await _gamesClient.UpdateEntityAsync(activeGame, Azure.ETag.All, TableUpdateMode.Replace);
+        }
+
+        GameEntity newGame = new()
+        {
+            Id = Guid.NewGuid(),
+            IsActive = true
+        };
+
+        _ = await _gamesClient.AddEntityAsync(newGame);
     }
 
+    public async Task<GameEntity> GetGameAsync()
+    {
+        GameEntity? activeGame = _gamesClient
+            .Query<GameEntity>("IsActive eq true")
+            .FirstOrDefault();
+
+        if (activeGame != default)
+        {
+            return activeGame;
+        }
+
+
+        GameEntity newGame = new()
+        {
+            Id = Guid.NewGuid(),
+            IsActive = true
+        };
+
+        _ = await _gamesClient.AddEntityAsync(newGame);
+
+        return newGame;
+    }
 }

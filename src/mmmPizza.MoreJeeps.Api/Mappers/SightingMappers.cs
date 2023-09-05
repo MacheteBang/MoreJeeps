@@ -2,12 +2,14 @@ namespace mmmPizza.MoreJeeps.Mappers;
 
 public static class SightingMappers
 {
-    public static Sighting ToSighting(this SightingRequest request, DateTime sightedOn)
+    public static SightingEntity ToSightingEntity(this Sighting model)
     {
-        return new Sighting
+        return new SightingEntity
         {
-            Player = request.Player,
-            SightedOn = sightedOn
+            Id = model.Id,
+            GameId = model.GameId,
+            Player = model.Player,
+            SightedOn = model.SightedOn
         };
     }
 }
