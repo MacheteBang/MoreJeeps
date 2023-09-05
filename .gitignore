@@ -267,3 +267,6 @@ __pycache__/
 .terraform/
 terraform.tfvars
 backend.conf
+
+# tools
+tools/.env
