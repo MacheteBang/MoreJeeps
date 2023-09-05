@@ -29,6 +29,8 @@ public sealed class GameRepository : IGameRepository
 
     public async Task<List<SightingEntity>> GetSightingsAsync(Guid gameId)
     {
+        await Task.CompletedTask;
+
         return _sightingsClient
             .Query<SightingEntity>(TableClient.CreateQueryFilter($"GameId eq {gameId}"))
             .ToList();
