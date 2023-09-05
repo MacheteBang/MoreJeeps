@@ -28,7 +28,7 @@ public class SightingFunctions
             return new BadRequestObjectResult("Invalid sightings object sent");
         }
 
-        await _gameService.AddSightingAsync(sightingRequest.ToSighting(DateTime.UtcNow));
+        await _gameService.AddSightingAsync(sightingRequest);
 
         return new OkResult();
     }

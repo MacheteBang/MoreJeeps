@@ -7,7 +7,9 @@ resource "azurerm_windows_function_app" "func" {
   service_plan_id            = azurerm_service_plan.plan.id
 
   app_settings = {
-    CoverLetterSettings__StorageEndpoint = azurerm_storage_account.st.primary_blob_endpoint
+    MoreJeepsTableSettings__ConnectionString   = azurerm_storage_account.st.primary_connection_string
+    MoreJeepsTableSettings__SightingsTableName = azurerm_storage_table.stable_sightings.name
+    MoreJeepsTableSettings__GamesTableName     = azurerm_storage_table.stable_games.name
   }
 
   site_config {
