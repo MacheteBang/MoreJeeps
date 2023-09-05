@@ -12,7 +12,7 @@ public class GameFunctions
     }
 
     [FunctionName("GetGame")]
-    public async Task<IActionResult> GetGameAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "games")] HttpRequest request)
+    public async Task<IActionResult> GetGameAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "games")] HttpRequest request)
     {
         Game game = await _gameService.GetGameAsync();
         GameResponse gameResponse = game.ToGameResponse();
@@ -21,7 +21,7 @@ public class GameFunctions
     }
 
     [FunctionName("ClearGame")]
-    public async Task<IActionResult> ClearGameAsync([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "games")] HttpRequest request)
+    public async Task<IActionResult> ClearGameAsync([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "games")] HttpRequest request)
     {
         await _gameService.ClearGameAsync();
 
