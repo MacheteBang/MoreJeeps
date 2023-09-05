@@ -1,3 +1,39 @@
 ﻿@page "/"
 
-<h1>More Jeeps!</h1>
+<div class="" style="height:100vh">
+    <div class="row p-0 m-0 align-items-center bg-light shadow" style="height:64px">
+        <div class="col-10">
+            <span class="display-6">More Jeeps!</span>
+        </div>
+        <div class="col-2 text-end">
+            <button class="btn btn-dark" @onclick="OnResetButtonClicked">Reset</button>
+        </div>
+    </div>
+    <div class="row row-cols-2 p-0 m-0" style="height:calc(100vh - 64px)">
+        <PlayerPanel @ref="_playerOnePanel" Player=Players.One />
+        <PlayerPanel @ref="_playerTwoPanel" Player=Players.Two />
+        <PlayerPanel @ref="_playerThreePanel" Player=Players.Three />
+        <PlayerPanel @ref="_playerFourPanel" Player=Players.Four />
+    </div>
+</div>
+@code
+{
+    private PlayerPanel _playerOnePanel = default!;
+    private PlayerPanel _playerTwoPanel = default!;
+    private PlayerPanel _playerThreePanel = default!;
+    private PlayerPanel _playerFourPanel = default!;
+}
+@functions
+{
+
+
+    private void OnResetButtonClicked()
+    {
+        _playerOnePanel.ClearScore();
+        _playerTwoPanel.ClearScore();
+        _playerThreePanel.ClearScore();
+        _playerFourPanel.ClearScore();
+
+        Console.WriteLine("TODO: Call service to clear scores");
+    }
+}
