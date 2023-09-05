@@ -1,4 +1,4 @@
-namespace mmmPizza.MoreJeeps.Repositories;
+namespace mmmPizza.MoreJeeps.DataAccess;
 
 public interface IGameRepository
 {

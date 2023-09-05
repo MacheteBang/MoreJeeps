@@ -1,7 +1,7 @@
 global using mmmPizza.MoreJeeps.Contracts.Requests;
 global using mmmPizza.MoreJeeps.Enums;
 global using mmmPizza.MoreJeeps.Models;
-global using mmmPizza.MoreJeeps.Repositories;
+global using mmmPizza.MoreJeeps.DataAccess;
 global using mmmPizza.MoreJeeps.Services;
 
 
