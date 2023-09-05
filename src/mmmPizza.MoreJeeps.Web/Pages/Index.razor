@@ -18,7 +18,7 @@
 </div>
 @code
 {
-    [Inject] private IMoreJeepsApiService _apiService { get; set; }
+    [Inject] private IMoreJeepsApiService _apiService { get; set; } = default!;
 
     private PlayerPanel _playerOnePanel = default!;
     private PlayerPanel _playerTwoPanel = default!;
