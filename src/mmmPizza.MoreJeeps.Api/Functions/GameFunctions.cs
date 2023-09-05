@@ -1,12 +1,30 @@
+using mmmPizza.MoreJeeps.Mappers;
+
 namespace mmmPizza.MoreJeeps.Functions;
 
 public class GameFunctions
 {
+    private readonly IGameService _gameService;
+
+    public GameFunctions(IGameService gameService)
+    {
+        _gameService = gameService;
+    }
+
     [FunctionName("GetGame")]
     public async Task<IActionResult> GetGameAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "games")] HttpRequest request)
     {
-        // TODO: Add service to get game
+        Game game = await _gameService.GetGameAsync();
+        GameResponse gameResponse = game.ToGameResponse();
 
-        return new OkResult();
+        return new OkObjectResult(gameResponse);
+    }
+
+    [FunctionName("ClearGame")]
+    public async Task<IActionResult> ClearGameAsync([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "games")] HttpRequest request)
+    {
+        await _gameService.ClearGameAsync();
+
+        return new AcceptedResult();
     }
 }
