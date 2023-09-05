@@ -12,7 +12,7 @@ public class SightingFunctions
     }
 
     [FunctionName("AddSighting")]
-    public async Task<IActionResult> AddSightingAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "sightings")] HttpRequest request)
+    public async Task<IActionResult> AddSightingAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "sightings")] HttpRequest request)
     {
         string bodyAsString = await request.ReadAsStringAsync();
         if (string.IsNullOrWhiteSpace(bodyAsString)) return new BadRequestObjectResult("Invalid sightings object sent");

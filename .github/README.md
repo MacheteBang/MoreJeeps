@@ -17,6 +17,24 @@ Shortly after my son was born, I purchased a 2 door Jeep Wrangler JK and joined 
 *  Get an [Azure](https://azure.microsoft.com/en-us/) subscription. I'm using a _Pay As You Go_ subscription, and the resources I'm using are no cost / low cost (pennies) to operate at the scale I'm operating at.
 *  Install [.NET 7.0](https://dotnet.microsoft.com/en-us/)
 
+### 🧱 Terraform
+Terraform requires two files now found in source: `backend.conf` and `terraform.tfvars`.
+
+To keep the configuration private, the `backend.conf` should look like this:
+```
+tenant_id                  = {your Azure tenant ID}
+subscription_id            = {your Azure subscription ID}
+resource_group_name        = {state file resource group name}
+storage_account_name       = {state file storage account name}
+container_name             = {state file container name}
+key                        = "terraform.tfstate"
+```
+The variable used to name the resources as a "company code" is stored in `terraform.tfvars`.  This file should look like this:
+```
+owner_code = "{code}" # this can be _anything_, but recomending a three character acronym
+
+```
+
 ## 🫴 Contributing
 Contributions are welcome to this repository to make it better.
 
