@@ -1,6 +1,6 @@
 <div class="col p-3 m-0" style="height:50%">
     <div class="row p-0 m-0 align-items-center text-center border rounded" style="height:100%; cursor:pointer"
-    @onclick="OnPanelClick">
+    @onclick="OnPanelClickAsync">
         <div>
             <h1>Player @Player.ToString()</h1>
             <h2>Score: @_score jeeps</h2>
@@ -11,9 +11,15 @@
 @code
 {
     [Parameter] public Players Player { get; set; }
+    [Parameter] public EventCallback<Players> IncrementScore { get; set; }
 
     private int _score { get; set; }
 
+
+    public void SetScore(int newScore)
+    {
+        _score = newScore;
+    }
     public void ClearScore()
     {
         _score = 0;
@@ -21,9 +27,9 @@
 }
 @functions
 {
-    private void OnPanelClick()
+    private async Task OnPanelClickAsync()
     {
-        Console.WriteLine($"TODO: Call service to increment score for Player {Player.ToString()}");
         _score++;
+        await IncrementScore.InvokeAsync(Player);
     }
 }

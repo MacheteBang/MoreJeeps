@@ -6,34 +6,58 @@
             <span class="display-6">More Jeeps!</span>
         </div>
         <div class="col-2 text-end">
-            <button class="btn btn-dark" @onclick="OnResetButtonClicked">Reset</button>
+            <button class="btn btn-dark" @onclick="OnResetButtonClickedAsync">Reset</button>
         </div>
     </div>
     <div class="row row-cols-2 p-0 m-0" style="height:calc(100vh - 64px)">
-        <PlayerPanel @ref="_playerOnePanel" Player=Players.One />
-        <PlayerPanel @ref="_playerTwoPanel" Player=Players.Two />
-        <PlayerPanel @ref="_playerThreePanel" Player=Players.Three />
-        <PlayerPanel @ref="_playerFourPanel" Player=Players.Four />
+        <PlayerPanel @ref="_playerOnePanel" Player="Players.One" IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerTwoPanel" Player="Players.Two" IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerThreePanel" Player="Players.Three" IncrementScore="IncrementPanelScoreAsync" />
+        <PlayerPanel @ref="_playerFourPanel" Player="Players.Four" IncrementScore="IncrementPanelScoreAsync" />
     </div>
 </div>
 @code
 {
+    [Inject] private IMoreJeepsApiService _apiService { get; set; }
+
     private PlayerPanel _playerOnePanel = default!;
     private PlayerPanel _playerTwoPanel = default!;
     private PlayerPanel _playerThreePanel = default!;
     private PlayerPanel _playerFourPanel = default!;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Game game = await _apiService.GetGameAsync();
+
+        game.PlayerScores.TryGetValue(Players.One, out int p1Score);
+        if (_playerOnePanel is not null) _playerOnePanel.SetScore(p1Score);
+        game.PlayerScores.TryGetValue(Players.Two, out int p2Score);
+        if (_playerTwoPanel is not null) _playerTwoPanel.SetScore(p2Score);
+        game.PlayerScores.TryGetValue(Players.Three, out int p3Score);
+        if (_playerThreePanel is not null) _playerThreePanel.SetScore(p3Score);
+        game.PlayerScores.TryGetValue(Players.Four, out int p4Score);
+        if (_playerFourPanel is not null) _playerFourPanel.SetScore(p4Score);
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task IncrementPanelScoreAsync(Players player)
+    {
+        await _apiService.IncrementScoreAsync(player);
+    }
 }
 @functions
 {
-
-
-    private void OnResetButtonClicked()
+    private async Task OnResetButtonClickedAsync()
     {
+        await _apiService.ResetGameAsync();
+
         _playerOnePanel.ClearScore();
         _playerTwoPanel.ClearScore();
         _playerThreePanel.ClearScore();
         _playerFourPanel.ClearScore();
-
-        Console.WriteLine("TODO: Call service to clear scores");
     }
 }
+
+
