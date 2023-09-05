@@ -22,3 +22,20 @@ resource "azurerm_windows_function_app" "func" {
     }
   }
 }
+
+resource "azurerm_app_service_custom_hostname_binding" "hostname_binding" {
+  hostname            = join(".", [azurerm_dns_cname_record.dns_cname_record_api.name, azurerm_dns_cname_record.dns_cname_record_api.zone_name])
+  app_service_name    = azurerm_windows_function_app.func.name
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_app_service_managed_certificate" "certificate" {
+  custom_hostname_binding_id = azurerm_app_service_custom_hostname_binding.hostname_binding.id
+}
+
+resource "azurerm_app_service_certificate_binding" "certificate_binding" {
+  hostname_binding_id = azurerm_app_service_custom_hostname_binding.hostname_binding.id
+  certificate_id      = azurerm_app_service_managed_certificate.certificate.id
+  ssl_state           = "SniEnabled"
+}
+
