@@ -12,7 +12,7 @@ Shortly after my son was born, I purchased a 2 door Jeep Wrangler JK and joined 
     - [Issues](#issues)
 
 ## 🧩 Set Up
-"More Jeeps" is a front end and back end in written in .NET 7. The back end is a traditional WebAPI project and the front end is a Blazor app.
+"More Jeeps" is an Azure Function back end.
 
 *  Get an [Azure](https://azure.microsoft.com/en-us/) subscription. I'm using a _Pay As You Go_ subscription, and the resources I'm using are no cost / low cost (pennies) to operate at the scale I'm operating at.
 *  Install [.NET 7.0](https://dotnet.microsoft.com/en-us/)
